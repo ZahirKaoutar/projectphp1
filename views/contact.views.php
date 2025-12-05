@@ -1,3 +1,42 @@
+  
+  
+  <?php
+      session_start();
+
+      $errors = [];
+
+
+
+
+
+      if (isset($_SESSION['errors'])) {
+        $errors = $_SESSION['errors'] ;
+        
+      }
+      if(isset($_SESSION['succes'])){
+        $succes = $_SESSION['succes'];
+      }
+
+
+      unset($_SESSION['succes'] , $_SESSION['errors'] );
+
+
+
+      ?>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <section class="w-full h-full">
           <div class="container mx-auto py-16">
               <h2 class="text-3xl font-bold mb-6 text-center">Contactez-nous</h2>
