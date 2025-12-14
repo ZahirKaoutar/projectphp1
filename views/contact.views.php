@@ -1,69 +1,48 @@
-  
-  
-  <?php
-      session_start();
 
-      $errors = [];
+<?php session_start();
+$errors=[];
+$succes="";
+
+if(isset($_SESSION["succes"])){
+  $succes=$_SESSION["succes"];
+}
+if(isset($_SESSION["errors"])){
+  $errors=$_SESSION["errors"];
+}
+unset($_SESSION["errors"]);
+unset($_SESSION["succes"]);
+?>
 
 
 
 
 
-      if (isset($_SESSION['errors'])) {
-        $errors = $_SESSION['errors'] ;
+
+<section class="container mx-auto py-16">
+    <h2 class="text-3xl font-bold mb-6 text-center">Contactez-nous</h2>
+    
+  <?php if(!empty($succes)): ?>
+    <p class="bg-green-100 text-green-700 p-4 rounded-lg mb-4 text-center">
+      <?php echo $succes ?>
+    </p>
+  <?php endif; ?>
+    <form class="max-w-xl mx-auto bg-white p-8 shadow-md rounded-lg space-y-4" method="post" action="/../controllers/contact.php">
+      <input type="text" placeholder="Votre nom"  name="nom" class="w-full border px-4 py-2 rounded-lg">
+      <?php if(!empty($errors["nom"])):?>
+         <p class="text-red-500"><?php echo $errors["nom"]?></p>
         
-      }
-      if(isset($_SESSION['succes'])){
-        $succes = $_SESSION['succes'];
-      }
-
-
-      unset($_SESSION['succes'] , $_SESSION['errors'] );
-
-
-
-      ?>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <section class="w-full h-full">
-          <div class="container mx-auto py-16">
-              <h2 class="text-3xl font-bold mb-6 text-center">Contactez-nous</h2>
-
-              <?php if($succes === " votre message est envoyé "): ?>
-                  <div class="max-w-2xl mx-auto mb-8 p-4 bg-green-100 border-l-4 border-green-500 rounded-lg">
-                      <p class="text-green-700 font-medium"><?= $succes ?></p>
-                  </div>
-              <?php endif; ?>
-
-              <form class="max-w-xl mx-auto p-8 shadow-md rounded-lg  h-[500px]  bg-gray-900" method="post" action="../controllers/contact.php">
-                  <input type="text" name="nom" placeholder="Votre nom"  class="w-full mb-[20px] border px-4 py-2 rounded-lg">
-                  <?php if(!empty($errors['nom'])): ?>
-                      <p class="text-red-500"><?= $errors['nom'] ?></p>
-                  <?php endif; ?>
-
-                  <input type="email" name="email" placeholder="Votre email"  class="w-full mb-[20px] border px-4 py-2 rounded-lg">
-                  <?php if(!empty($errors['email'])): ?>
-                      <p class="text-red-500"><?= $errors['email'] ?></p>
-                  <?php endif; ?>
-
-                  <textarea name="message" placeholder="Votre message" class="w-full mb-[20px] border px-4 py-2 rounded-lg"></textarea>
-                  <?php if(!empty($errors['message'])): ?>
-                      <p class="text-red-500"><?= $errors['message'] ?></p>
-                  <?php endif; ?>
-
-                  <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Envoyer</button>
-              </form>
-          </div>
-      </section>
+      <?php endif;?>
+     
+      <input type="email" placeholder="Votre email" name="email" class="w-full border px-4 py-2 rounded-lg">
+      <?php if(!empty($errors["email"])):?>
+         <p class="text-red-500"><?php echo $errors["email"]?></p>
+        
+      <?php endif;?>
+      <textarea placeholder="Votre message" name="message" class="w-full border px-4 py-2 rounded-lg"></textarea>
+      <?php if(!empty($errors["message"])):?>
+         <p class="text-red-500"><?php echo $errors["message"]?></p>
+        
+      <?php endif;?>
+      <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Envoyer</button>
+    </form>
+  </section>
